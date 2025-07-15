@@ -39,9 +39,13 @@ export const gmailMcpAgent = async (): Promise<Agent> => {
   const tools = await mcpClient.getTools();
 
   // Step 4: Create and return the Agent
+  const isAuthenticated = Boolean(oauthUrl === undefined || oauthUrl === null || oauthUrl === ''); // Example logic, replace with your actual auth check
+  const instructions = isAuthenticated
+    ? `You are a secure Klavis Gmail agent. You have access to Gmail tools: read, send, search emails, and manage labels. Gmail is authenticated and all operations are ready to use. Your access is private and protected.`
+    : `You are a secure Klavis Gmail agent with access to Gmail tools (read, send, search, manage labels), but authentication is required. For your privacy and security, please log in using this secure link: ${oauthUrl}`;
   return new Agent({
     name: 'Dynamic Gmail MCP Agent',
-    instructions: `You are a helpful Gmail assistant powered by Klavis MCP tools. You can read, send, and search emails, and perform other Gmail-related tasks securely.\n\nIf a user has not yet authorized Gmail access, guide them through the authorization process:\n- Clearly inform the user that authorization is required to access their Gmail account.\n- Provide a secure, clickable OAuth URL for Gmail authorization.\n- Explain that this link can be opened directly in the playground or UI, and that the process is secure and uses their own Google account.\n- After authorization, confirm that the user can proceed with Gmail actions.\n\nAlways be clear, friendly, and proactive in helping users complete the Gmail authorization flow.`,
+    instructions,
     model: openai('gpt-4o-mini'),
     tools,
   });
