@@ -13,7 +13,7 @@ export const gmailMcpAgent = async (): Promise<Agent> => {
   // Step 1: Create a new Gmail MCP server instance
   const instance = await klavis.mcpServer.createServerInstance({
     serverName: "Gmail",
-    userId: process.env.APP_USER_ID || "test-user", // Use a unique ID per user
+    userId: "test-user", // Use a unique ID per user
     platformName: 'mastra-gmail-agent',
   });
 

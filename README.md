@@ -20,6 +20,7 @@ This project demonstrates how to integrate Gmail using Klavis MCP and Mastra age
 - **Node.js** (v16 or later recommended)
 - **npm** (comes with Node.js) or **yarn**
 - Access to [Klavis](https://klavis.ai/) and a valid **KLAVIS_API_KEY**
+- Access to [OpenAI](https://platform.openai.com/) and a valid **OPENAI_API_KEY**
 
 ---
 
@@ -42,32 +43,26 @@ This project demonstrates how to integrate Gmail using Klavis MCP and Mastra age
 1. **Create a `.env` file** in the `integrations` directory (same level as `package.json`).
 2. **Add the following variables:**
    ```env
-   KLAVIS_API_KEY=your_klavis_api_key_here
-   APP_USER_ID=your_test_user_id_here
+   KLAVIS_API_KEY=your_klavis_api_key_here   OPENAI_API_KEY=your_openai_api_key_here
    ```
-   - Replace `your_klavis_api_key_here` with your actual Klavis API key.
-   - Replace `your_test_user_id_here` with a unique user ID (any string for testing).
+   - `KLAVIS_API_KEY`: Your Klavis API key (required for MCP server and agent creation).
+   - `OPENAI_API_KEY`: Your OpenAI API key (required for the agent's language model).
 
 ---
 
 ## Project Structure
 - `src/mastra/agents/gmail-mcp-user.ts`: Manages user-specific Gmail MCP server instances (in-memory).
 - `src/mastra/agents/gmail-mcp-agent.ts`: Dynamically creates a Gmail MCP Agent using Klavis.
-- `src/mastra/cli-gmail-test.ts`: (If present) CLI entry point for testing the agent.
-- `src/mastra/tools/` and `src/mastra/workflows/`: Additional tools and workflows.
+- `src/mastra/index.ts`: Main entry point for handling user Gmail requests and agent orchestration.
 
 ---
 
 ## Running the Agent
-1. **Run the CLI test script (if available):**
+1. **Start the project:**
    ```sh
-   npx ts-node src/mastra/cli-gmail-test.ts
-   ```
-   Or, check your `package.json` for available scripts:
-   ```sh
-   npm run start
-   # or
    npm run dev
+   # or
+   npm run start
    ```
 2. **Follow the console output.** You should see a message like:
    ```
@@ -94,7 +89,7 @@ This project demonstrates how to integrate Gmail using Klavis MCP and Mastra age
 ## Notes
 - **Security:** Never commit your `.env` file or API keys to GitHub.
 - **Persistence:** For production, replace the in-memory store in `gmail-mcp-user.ts` with a database.
-- **Customization:** Extend the agent or add new tools/workflows as needed.
+- **Customization:** Extend the agent or add new features as needed.
 
 ---
 
