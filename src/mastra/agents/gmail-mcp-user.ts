@@ -12,6 +12,7 @@ interface UserMcpInstance {
   authorized: boolean;
 }
 
+
 const userMcpInstances = new Map<string, UserMcpInstance>();
 
 const KLAVIS_API_KEY = process.env.KLAVIS_API_KEY!; // Set this in your .env
