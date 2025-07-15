@@ -24,11 +24,13 @@ async function createKlavisGmailMcpInstance(userId: string): Promise<Omit<UserMc
     userId,
     platformName: 'integrations-gmail', // or your app name
   });
+  // Construct white-labeled OAuth URL
+  const oauthUrl = `https://api.klavis.ai/oauth/gmail/authorize?instance_id=${gmailServer.instanceId}&client_id=${process.env.GOOGLE_CLIENT_ID}`;
   return {
     userId,
     serverUrl: gmailServer.serverUrl || '',
     instanceId: gmailServer.instanceId || '',
-    oauthUrl: gmailServer.oauthUrl || '',
+    oauthUrl,
   };
 }
 
